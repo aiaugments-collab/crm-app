@@ -38,6 +38,7 @@ services:
       IS_SIGN_UP_DISABLED: "false"
       STORAGE_TYPE: "local"
       STORAGE_LOCAL_PATH: "/app/packages/twenty-server/.local-storage"
+      FILE_UPLOAD_SIZE_LIMIT: "10MB"
       
       # Frontend serving - enable static file serving
       NODE_ENV: "production"
