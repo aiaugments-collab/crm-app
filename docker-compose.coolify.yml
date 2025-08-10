@@ -34,6 +34,9 @@ services:
       IS_SIGN_UP_DISABLED: "false"
       STORAGE_TYPE: "local"
       
+      # Frontend serving - enable static file serving
+      NODE_ENV: "production"
+      
       # Database Migration Settings - BYPASS problematic shell parsing
       DISABLE_DB_MIGRATIONS: "true"
       DISABLE_CRON_JOBS_REGISTRATION: "true"
