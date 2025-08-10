@@ -25,8 +25,8 @@ services:
       FRONTEND_URL: https://crm.augment.cfd
       
       # Multi-tenancy Configuration
-      IS_MULTIWORKSPACE_ENABLED: "true"
-      DEFAULT_SUBDOMAIN: "app"
+      IS_MULTIWORKSPACE_ENABLED: "false"
+      # DEFAULT_SUBDOMAIN: "app"  # Not needed in single workspace mode
       
       # Security Secrets (pre-generated strong secrets)
       APP_SECRET: "sk_prod_7h9j2k8m1n5p6q4r3s2t1u9v8w7x6y5z4a3b2c1d"
