@@ -17,8 +17,8 @@ services:
       REDIS_URL: "redis://default:AYMrAAIjcDFkZTFjMWJjY2E4M2Y0NDIyOGRlMDYwYTIxNzUyOTJkNnAxMA@tender-sculpin-33579.upstash.io:6379"
       
       # Server URLs (will be automatically set by Coolify)
-      SERVER_URL: ${COOLIFY_FQDN}
-      FRONTEND_URL: ${COOLIFY_FQDN}
+      SERVER_URL: https://${COOLIFY_FQDN:-localhost:3000}
+      FRONTEND_URL: https://${COOLIFY_FQDN:-localhost:3000}
       
       # Multi-tenancy Configuration
       IS_MULTIWORKSPACE_ENABLED: "true"
@@ -39,8 +39,8 @@ services:
       DISABLE_CRON_JOBS_REGISTRATION: "true"
       
       # Email Configuration (optional - can be enabled later)
-      EMAIL_FROM_ADDRESS: "noreply@${COOLIFY_FQDN}"
-      EMAIL_SYSTEM_ADDRESS: "system@${COOLIFY_FQDN}"
+      EMAIL_FROM_ADDRESS: "noreply@${COOLIFY_FQDN:-localhost}"
+      EMAIL_SYSTEM_ADDRESS: "system@${COOLIFY_FQDN:-localhost}"
       
       # Health Check Settings
       HEALTH_CHECK_ENABLED: "true"
@@ -75,7 +75,7 @@ services:
       REDIS_URL: "redis://default:AYMrAAIjcDFkZTFjMWJjY2E4M2Y0NDIyOGRlMDYwYTIxNzUyOTJkNnAxMA@tender-sculpin-33579.upstash.io:6379"
       
       # Server URLs
-      SERVER_URL: ${COOLIFY_FQDN}
+      SERVER_URL: https://${COOLIFY_FQDN:-localhost:3000}
       
       # Security Secrets (same as server)
       APP_SECRET: "sk_prod_7h9j2k8m1n5p6q4r3s2t1u9v8w7x6y5z4a3b2c1d"
