@@ -16,9 +16,9 @@ services:
       PG_DATABASE_URL: "postgresql://neondb_owner:npg_9hx2EOLKuoSD@ep-ancient-frog-ae6z6i5j-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
       REDIS_URL: "rediss://default:AYMrAAIjcDFkZTFjMWJjY2E4M2Y0NDIyOGRlMDYwYTIxNzUyOTJkNnAxMA@tender-sculpin-33579.upstash.io:6379"
       
-      # Server URLs (will be automatically set by Coolify)
-      SERVER_URL: https://${COOLIFY_FQDN:-localhost:3000}
-      FRONTEND_URL: https://${COOLIFY_FQDN:-localhost:3000}
+      # Server URLs (use your actual Coolify domain)
+      SERVER_URL: https://crmapp.augment.cfd
+      FRONTEND_URL: https://crmapp.augment.cfd
       
       # Multi-tenancy Configuration
       IS_MULTIWORKSPACE_ENABLED: "true"
@@ -75,7 +75,7 @@ services:
       REDIS_URL: "rediss://default:AYMrAAIjcDFkZTFjMWJjY2E4M2Y0NDIyOGRlMDYwYTIxNzUyOTJkNnAxMA@tender-sculpin-33579.upstash.io:6379"
       
       # Server URLs
-      SERVER_URL: https://${COOLIFY_FQDN:-localhost:3000}
+      SERVER_URL: https://crmapp.augment.cfd
       
       # Security Secrets (same as server)
       APP_SECRET: "sk_prod_7h9j2k8m1n5p6q4r3s2t1u9v8w7x6y5z4a3b2c1d"
