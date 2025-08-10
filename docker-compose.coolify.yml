@@ -14,7 +14,7 @@ services:
       
       # External Database URLs (your actual credentials)
       PG_DATABASE_URL: "postgresql://neondb_owner:npg_9hx2EOLKuoSD@ep-ancient-frog-ae6z6i5j-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
-      REDIS_URL: "redis://default:AYMrAAIjcDFkZTFjMWJjY2E4M2Y0NDIyOGRlMDYwYTIxNzUyOTJkNnAxMA@tender-sculpin-33579.upstash.io:6379"
+      REDIS_URL: "rediss://default:AYMrAAIjcDFkZTFjMWJjY2E4M2Y0NDIyOGRlMDYwYTIxNzUyOTJkNnAxMA@tender-sculpin-33579.upstash.io:6379"
       
       # Server URLs (will be automatically set by Coolify)
       SERVER_URL: https://${COOLIFY_FQDN:-localhost:3000}
@@ -72,7 +72,7 @@ services:
     environment:
       # External Database URLs (same as server)
       PG_DATABASE_URL: "postgresql://neondb_owner:npg_9hx2EOLKuoSD@ep-ancient-frog-ae6z6i5j-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
-      REDIS_URL: "redis://default:AYMrAAIjcDFkZTFjMWJjY2E4M2Y0NDIyOGRlMDYwYTIxNzUyOTJkNnAxMA@tender-sculpin-33579.upstash.io:6379"
+      REDIS_URL: "rediss://default:AYMrAAIjcDFkZTFjMWJjY2E4M2Y0NDIyOGRlMDYwYTIxNzUyOTJkNnAxMA@tender-sculpin-33579.upstash.io:6379"
       
       # Server URLs
       SERVER_URL: https://${COOLIFY_FQDN:-localhost:3000}
