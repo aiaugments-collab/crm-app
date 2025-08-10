@@ -34,9 +34,9 @@ services:
       IS_SIGN_UP_DISABLED: "false"
       STORAGE_TYPE: "local"
       
-      # Database Migration Settings
-      DISABLE_DB_MIGRATIONS: "false"
-      DISABLE_CRON_JOBS_REGISTRATION: "false"
+      # Database Migration Settings - BYPASS problematic shell parsing
+      DISABLE_DB_MIGRATIONS: "true"
+      DISABLE_CRON_JOBS_REGISTRATION: "true"
       
       # Email Configuration (optional - can be enabled later)
       EMAIL_FROM_ADDRESS: "noreply@${COOLIFY_FQDN}"
@@ -45,12 +45,22 @@ services:
       # Health Check Settings
       HEALTH_CHECK_ENABLED: "true"
       
+    command: >
+      sh -c "
+        echo 'Starting Twenty server...' &&
+        echo 'Running database migrations using TypeScript...' &&
+        NODE_OPTIONS='--max-old-space-size=1500' tsx ./scripts/setup-db.ts &&
+        yarn database:migrate:prod &&
+        yarn command:prod upgrade &&
+        echo 'Database setup complete, starting server...' &&
+        node dist/src/main
+      "
     healthcheck:
       test: ["CMD", "curl", "--fail", "http://localhost:3000/healthz"]
       interval: 30s
       timeout: 10s
       retries: 5
-      start_period: 60s
+      start_period: 120s
     restart: unless-stopped
 
   twenty-worker:
