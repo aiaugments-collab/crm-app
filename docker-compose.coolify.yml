@@ -37,6 +37,7 @@ services:
       # Application Features
       IS_SIGN_UP_DISABLED: "false"
       STORAGE_TYPE: "local"
+      STORAGE_LOCAL_PATH: "/app/packages/twenty-server/.local-storage"
       
       # Frontend serving - enable static file serving
       NODE_ENV: "production"
