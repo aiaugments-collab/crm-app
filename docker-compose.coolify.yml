@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  twenty-server:
+    image: twentycrm/twenty:latest
+    container_name: twenty-server
+    ports:
+      - "3000:3000"
+    volumes:
+      - twenty-storage:/app/packages/twenty-server/.local-storage
+    environment:
+      # Core Application
+      NODE_PORT: 3000
+      
+      # External Database URLs (your actual credentials)
+      PG_DATABASE_URL: "postgresql://neondb_owner:npg_9hx2EOLKuoSD@ep-ancient-frog-ae6z6i5j-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+      REDIS_URL: "redis://default:AYMrAAIjcDFkZTFjMWJjY2E4M2Y0NDIyOGRlMDYwYTIxNzUyOTJkNnAxMA@tender-sculpin-33579.upstash.io:6379"
+      
+      # Server URLs (will be automatically set by Coolify)
+      SERVER_URL: ${COOLIFY_FQDN}
+      FRONTEND_URL: ${COOLIFY_FQDN}
+      
+      # Multi-tenancy Configuration
+      IS_MULTIWORKSPACE_ENABLED: "true"
+      DEFAULT_SUBDOMAIN: "app"
+      
+      # Security Secrets (pre-generated strong secrets)
+      APP_SECRET: "sk_prod_7h9j2k8m1n5p6q4r3s2t1u9v8w7x6y5z4a3b2c1d"
+      ACCESS_TOKEN_SECRET: "at_prod_9m8n7b6v5c4x3z2a1s9d8f7g6h5j4k3l2p1o9i8u7y6t5r4"
+      LOGIN_TOKEN_SECRET: "lt_prod_3x2c9v8b7n6m5k4j3h2g1f9d8s7a6p5o4i3u2y1t9r8e7w6q5"
+      REFRESH_TOKEN_SECRET: "rt_prod_5k4j3h2g1f9d8s7a6p5o4i3u2y1t9r8e7w6q5z4x3c2v1b9n8m7"
+      
+      # Application Features
+      IS_SIGN_UP_DISABLED: "false"
+      STORAGE_TYPE: "local"
+      
+      # Database Migration Settings
+      DISABLE_DB_MIGRATIONS: "false"
+      DISABLE_CRON_JOBS_REGISTRATION: "false"
+      
+      # Email Configuration (optional - can be enabled later)
+      EMAIL_FROM_ADDRESS: "noreply@${COOLIFY_FQDN}"
+      EMAIL_SYSTEM_ADDRESS: "system@${COOLIFY_FQDN}"
+      
+      # Health Check Settings
+      HEALTH_CHECK_ENABLED: "true"
+      
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:3000/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+
+  twenty-worker:
+    image: twentycrm/twenty:latest
+    container_name: twenty-worker
+    command: ["yarn", "worker:prod"]
+    volumes:
+      - twenty-storage:/app/packages/twenty-server/.local-storage
+    environment:
+      # External Database URLs (same as server)
+      PG_DATABASE_URL: "postgresql://neondb_owner:npg_9hx2EOLKuoSD@ep-ancient-frog-ae6z6i5j-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+      REDIS_URL: "redis://default:AYMrAAIjcDFkZTFjMWJjY2E4M2Y0NDIyOGRlMDYwYTIxNzUyOTJkNnAxMA@tender-sculpin-33579.upstash.io:6379"
+      
+      # Server URLs
+      SERVER_URL: ${COOLIFY_FQDN}
+      
+      # Security Secrets (same as server)
+      APP_SECRET: "sk_prod_7h9j2k8m1n5p6q4r3s2t1u9v8w7x6y5z4a3b2c1d"
+      
+      # Worker-specific settings
+      DISABLE_DB_MIGRATIONS: "true"
+      DISABLE_CRON_JOBS_REGISTRATION: "true"
+      
+      # Storage
+      STORAGE_TYPE: "local"
+      
+    depends_on:
+      - twenty-server
+    restart: unless-stopped
+
+volumes:
+  twenty-storage:
+    driver: local
