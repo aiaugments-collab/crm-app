@@ -99,33 +99,37 @@ export const usePageChangeEffectNavigateLocation = () => {
     return AppPath.CreateWorkspace;
   }
 
-  // Bypass profile creation step - commented out to skip directly to dashboard
-  // if (
-  //   onboardingStatus === OnboardingStatus.PROFILE_CREATION &&
-  //   !isMatchingLocation(location, AppPath.CreateProfile)
-  // ) {
-  //   return AppPath.CreateProfile;
-  // }
-
+  // Bypass profile creation step - redirect directly to dashboard
   if (
-    onboardingStatus === OnboardingStatus.SYNC_EMAIL &&
-    !isMatchingLocation(location, AppPath.SyncEmails)
+    onboardingStatus === OnboardingStatus.PROFILE_CREATION
   ) {
-    return AppPath.SyncEmails;
+    return defaultHomePagePath;
   }
 
-  if (
-    onboardingStatus === OnboardingStatus.INVITE_TEAM &&
-    !isMatchingLocation(location, AppPath.InviteTeam)
-  ) {
-    return AppPath.InviteTeam;
+  // Also redirect away from CreateProfile page if someone tries to access it directly
+  if (isMatchingLocation(location, AppPath.CreateProfile)) {
+    return defaultHomePagePath;
   }
 
+  // Bypass sync email step - redirect directly to dashboard
   if (
-    onboardingStatus === OnboardingStatus.BOOK_ONBOARDING &&
-    !someMatchingLocationOf([AppPath.BookCallDecision, AppPath.BookCall])
+    onboardingStatus === OnboardingStatus.SYNC_EMAIL
   ) {
-    return AppPath.BookCallDecision;
+    return defaultHomePagePath;
+  }
+
+  // Bypass invite team step - redirect directly to dashboard
+  if (
+    onboardingStatus === OnboardingStatus.INVITE_TEAM
+  ) {
+    return defaultHomePagePath;
+  }
+
+  // Bypass book onboarding step - redirect directly to dashboard
+  if (
+    onboardingStatus === OnboardingStatus.BOOK_ONBOARDING
+  ) {
+    return defaultHomePagePath;
   }
 
   if (

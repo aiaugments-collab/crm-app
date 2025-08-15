@@ -14,27 +14,27 @@ const getNextOnboardingStatus = (
   currentWorkspace: CurrentWorkspace | null,
   calendarBookingPageId: string | null,
 ) => {
+  // Skip all onboarding steps and go directly to completed
   if (currentUser?.onboardingStatus === OnboardingStatus.WORKSPACE_ACTIVATION) {
-    return OnboardingStatus.PROFILE_CREATION;
+    return OnboardingStatus.COMPLETED;
   }
 
   if (currentUser?.onboardingStatus === OnboardingStatus.PROFILE_CREATION) {
-    return OnboardingStatus.SYNC_EMAIL;
+    return OnboardingStatus.COMPLETED;
   }
-  if (
-    currentUser?.onboardingStatus === OnboardingStatus.SYNC_EMAIL &&
-    currentWorkspace?.workspaceMembersCount === 1
-  ) {
-    return OnboardingStatus.INVITE_TEAM;
+  
+  if (currentUser?.onboardingStatus === OnboardingStatus.SYNC_EMAIL) {
+    return OnboardingStatus.COMPLETED;
   }
+  
   if (currentUser?.onboardingStatus === OnboardingStatus.INVITE_TEAM) {
-    return isDefined(calendarBookingPageId)
-      ? OnboardingStatus.BOOK_ONBOARDING
-      : OnboardingStatus.COMPLETED;
+    return OnboardingStatus.COMPLETED;
   }
+  
   if (currentUser?.onboardingStatus === OnboardingStatus.BOOK_ONBOARDING) {
     return OnboardingStatus.COMPLETED;
   }
+  
   return OnboardingStatus.COMPLETED;
 };
 
