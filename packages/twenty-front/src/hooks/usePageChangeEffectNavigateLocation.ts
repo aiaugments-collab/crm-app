@@ -99,12 +99,13 @@ export const usePageChangeEffectNavigateLocation = () => {
     return AppPath.CreateWorkspace;
   }
 
-  if (
-    onboardingStatus === OnboardingStatus.PROFILE_CREATION &&
-    !isMatchingLocation(location, AppPath.CreateProfile)
-  ) {
-    return AppPath.CreateProfile;
-  }
+  // Bypass profile creation step - commented out to skip directly to dashboard
+  // if (
+  //   onboardingStatus === OnboardingStatus.PROFILE_CREATION &&
+  //   !isMatchingLocation(location, AppPath.CreateProfile)
+  // ) {
+  //   return AppPath.CreateProfile;
+  // }
 
   if (
     onboardingStatus === OnboardingStatus.SYNC_EMAIL &&
